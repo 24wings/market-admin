@@ -27,7 +27,7 @@ export class DevLoginComponent implements OnInit {
       this.storage.dev = result.dev;
       this.storage.userType = MenuType.Develop;
       this.storage.menuList = (result.menus as IMenu[]).filter(menu => MenuType.Develop == menu.menuType);
-      this.router.navigateByUrl('/admin/dev/');
+      this.router.navigateByUrl('/admin/dev');
     }
   }
 

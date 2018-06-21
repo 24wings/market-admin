@@ -125,7 +125,7 @@
 
 
 
-<nz-modal [(nzVisible)]="state==ViewState.ImportJSON" nzTitle="数据导入" (nzOnCancel)="state=ViewState.ListCol" (nzOnOk)="trayParseJson()">
+<nz-modal [(nzVisible)]="ViewState.ImportJSON==state" nzTitle="数据导入" (nzOnCancel)="state=ViewState.ListCol" (nzOnOk)="trayParseJson()">
     <label>将如下代码复制到eolinker 数据库表页面的控制台生成JSON格式</label>
     <textarea name="" cols="30" rows="10"></textarea>
 
@@ -135,7 +135,7 @@
 </nz-modal>
 
 
-<ng-container *ngIf="state==ViewState.CodeGen || state==ViewState.chooseCodeTemplate">
+<ng-container *ngIf="ViewState.CodeGen==state || ViewState.chooseCodeTemplate==state">
     <button (click)="state=ViewState.ListCol" nz-button>返回</button>
     <div nz-row>
         <div nz-col nzSpan="12">
@@ -158,7 +158,7 @@
 
 </ng-container>
 
-<nz-modal [(nzVisible)]="state==ViewState.chooseCodeTemplate" nzTitle="选择生成模板" (nzOnCancel)="state=ViewState.CodeGen" (nzOnOk)="state=ViewState.CodeGen">
+<nz-modal [(nzVisible)]="ViewState.chooseCodeTemplate==state" nzTitle="选择生成模板" (nzOnCancel)="state=ViewState.CodeGen" (nzOnOk)="state=ViewState.CodeGen">
     <div>
         <div nz-row>
             <div nz-row [nzGutter]="8 ">

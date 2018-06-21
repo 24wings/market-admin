@@ -12,7 +12,7 @@
 
 
 
-<nz-modal [(nzVisible)]="state==ViewState.Create" nzTitle="添加菜单" (nzOnCancel)="state=ViewState.List" (nzOnOk)="state=ViewState.List;createMenu()">
+<nz-modal [(nzVisible)]="ViewState.Create==state" nzTitle="添加菜单" (nzOnCancel)="state=ViewState.List" (nzOnOk)="state=ViewState.List;createMenu()">
     <div>
         <nz-form-item>
             <nz-form-label [nzSpan]="6">菜单名</nz-form-label>
@@ -127,7 +127,7 @@
 
 
 
-<nz-modal [(nzVisible)]="state==ViewState.EditGroup" nzTitle="更新菜单组" (nzOnCancel)="state=ViewState.List" (nzOnOk)="state=ViewState.List;updateGroup()">
+<nz-modal [(nzVisible)]="ViewState.EditGroup==state" nzTitle="更新菜单组" (nzOnCancel)="state=ViewState.List" (nzOnOk)="state=ViewState.List;updateGroup()">
     <div *ngIf="selectedGroup">
         <nz-form-item>
             <nz-form-label [nzSpan]="6">菜单名</nz-form-label>
@@ -148,7 +148,7 @@
 </nz-modal>
 
 
-<nz-modal [(nzVisible)]="state==ViewState.EditMenu" nzTitle="更新菜单" (nzOnCancel)="state=ViewState.List" (nzOnOk)="state=ViewState.List;updateMenu()">
+<nz-modal [(nzVisible)]="ViewState.EditMenu==state" nzTitle="更新菜单" (nzOnCancel)="state=ViewState.List" (nzOnOk)="state=ViewState.List;updateMenu()">
     <div *ngIf="selectedMenu">
         <nz-form-item>
             <nz-form-label [nzSpan]="6">菜单名</nz-form-label>

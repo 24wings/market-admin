@@ -26,7 +26,7 @@ export class MenuPageComponent implements OnInit {
       icon: 'anticon anticon-apple'
     },
     {},
-   
+
     {
       active: false,
       name: '开发者',
@@ -38,7 +38,7 @@ export class MenuPageComponent implements OnInit {
   showTabGroups: IGroup[] = []
   optionParentMenus: IMenu[] = [];
 
-  state: ViewState = ViewState.List;
+  state = ViewState.List;
   isExteralLink: boolean = false;
   ViewState = ViewState;
   externalOpenOptions: { label: string, value: string }[] = [
@@ -103,9 +103,9 @@ export class MenuPageComponent implements OnInit {
     this.groups = this.common.getModuleGroup(this.menus);
 
   }
- async deleteMenu(menuId:number){
+  async deleteMenu(menuId: number) {
     await this.dev.menuDelete(menuId);
-   await this.getMenuList();
+    await this.getMenuList();
 
   }
   selectMenuGroup(group: IGroup) {

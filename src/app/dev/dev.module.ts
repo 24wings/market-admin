@@ -23,18 +23,23 @@ import { MarketGolbalSettingPageComponent } from './pages/market-golbal-setting-
 import { MarketLocalSettingPageComponent } from './pages/market-local-setting-page/market-local-setting-page.component';
 
 const routes: Routes = [
-  // { path: '**', redirectTo:'/admin/dev/market' },
+  // { path: '', redirectTo: '/menu' },
+  // {
+  //   path: "group-company", component: HomePageComponent, children: [
+  //     { path: '', component: GroupCompanyPageComponent }
+  //   ],
+  // },
+  // { path: '', redirectTo: '/admin/dev/menu', pathMatch: 'full' },
+  // {path:'',resolve:{name:''},r},
   {
-    path: "group-company", component: HomePageComponent, children: [
-      { path: '', component: GroupCompanyPageComponent }
-    ],
-  },
-  {
-    path: "", component: HomePageComponent,pathMatch:'full', children: [
+    path: "", component: HomePageComponent, children: [
+
       { path: '', component: MenuPageComponent },
-      {path: "group-company",  component: GroupCompanyPageComponent },
       {
-        path: 'dev/market', component: GroupCompanyMainPageComponent, children: [
+        path: "group-company", component: GroupCompanyPageComponent,
+      },
+      {
+        path: 'market', component: GroupCompanyMainPageComponent, children: [
           { path: ':marketId/menu', component: GroupCompanyMenuManagePageComponent },
           { path: ':marketId/org', component: OrgPageComponent },
           { path: ":marketId/employee", component: GroupCompanyEmployeePageComponent },
@@ -48,6 +53,11 @@ const routes: Routes = [
           }
         ]
       }
+    ]
+  },
+  {
+    path: 'menu', component: HomePageComponent, children: [
+      { path: '', component: MenuPageComponent }
     ]
   },
 ];
@@ -76,6 +86,7 @@ const routes: Routes = [
     MarketLocalSettingPageComponent
 
   ],
+  exports: [RouterModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class DevModule { }

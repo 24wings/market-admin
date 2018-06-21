@@ -15,29 +15,14 @@
           <span>{{group.text}}</span>
                 </span>
                 <ul>
-                    <li *ngFor="let child of group.children" nz-menu-item [routerLink]="child.link" routerLinkActive="ant-menu-item-selected">
+                    <li *ngFor="let child of group.children" nz-menu-item [routerLink]="[child.link]" routerLinkActive="ant-menu-item-selected">
                         <i [class]="child.icon"></i> {{child.text}}</li>
                 </ul>
             </li>
         </ul>
 
 
-        <!-- 开发者额外菜单 讨论后 附加到项目中 -->
-        <!-- <ng-container *ngIf="isDev">
-            <ul nz-menu [nzMode]="'inline'" nzTheme='dark' [nzInlineCollapsed]="isCollapsed" style="background: #00151A;">
-                <li nz-submenu>
-                    <span title>
-    
-              <i  style="margin-right: 8px"></i>
-              <span>数据库</span>
-                    </span>
-                    <ul>
-                        <li nz-menu-item routerLinkActive="ant-menu-item-selected" *ngFor="let db of dbs" [routerLink]="'/admin/tool/db/'+db.dbId"><i></i>{{db.name}} </li>
-                        <li nz-menu-item routerLinkActive="ant-menu-item-selected" (click)="state=View.AddDatabase"><i class="anticon anticon-plus"></i></li>
-                    </ul>
-                </li>
-            </ul>
-        </ng-container> -->
+
 
 
     </nz-sider>
@@ -83,7 +68,7 @@
     </nz-layout>
 </nz-layout>
 
-<nz-modal [(nzVisible)]="state==View.AddDatabase" nzTitle="添加数据库" (nzOnCancel)="state=View.List" (nzOnOk)="state=View.List;createDb()">
+<nz-modal [(nzVisible)]="View.AddDatabase==state" nzTitle="添加数据库" (nzOnCancel)="state=View.List" (nzOnOk)="state=View.List;createDb()">
     <div>
         <nz-form-item>
             <nz-form-label [nzSpan]="6">数据库名称</nz-form-label>
