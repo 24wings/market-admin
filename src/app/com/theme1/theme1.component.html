@@ -1,0 +1,62 @@
+<div class="phone" style="position:relative;background:url(/assets/images/iphone.png)" *ngIf="mode==1">
+  <div style="position:relative">
+    <img src="http://www.framework7.cn/i/status-bar.png" alt="" class="status-bar">
+
+    <div alt="" style="max-width: 100%;    max-width: 100%;
+                                        height: 600px;
+                                        width: 320px;
+                                        background-size: cover;" [style.backgroundImage]="'url('+material.home_image_urls[0]+ ')'">
+
+    </div>
+    <div style="    position: absolute;
+                        top: 40px;
+                        text-align: center;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 100%;">
+      <ul class="info" style="margin-top: 5.5rem;">
+        <li>
+          <input type="text" placeholder="请输入手机号" style="color: rgb(255, 255, 255);font-size:1rem">
+        </li>
+        <li style="
+                                      margin-top: 1rem;
+                                      margin-bottom: 1rem;
+                                  ">
+          <div class="flex-between" style="height: 2rem;">
+            <input type="number" id="mobile" placeholder="验证码登录" v-model="authcode" style="width: 6rem; color: rgb(255, 255, 255);font-size:1rem">
+            <button id="btn" style="background: rgb(207, 169, 114);border-radius: 25px;    outline: none;"> 获取验证码</button>
+          </div>
+        </li>
+        <button class=" login-btn" style="    width: 300px;
+          font-size: .9rem;
+          background: TRANSPARENT;
+          border: 2px solid orange;
+          text-align: center;
+          color: #fff;"> 登录 / 注册</button>
+      </ul>
+
+    </div>
+    <img [src]="material.share_image_url" alt="" class="logo">
+
+
+  </div>
+</div>
+
+
+<div class="phone" style="position:relative" *ngIf="mode==2">
+  <div style="position:relative">
+    <img src="http://www.framework7.cn/i/status-bar.png" alt="" class="status-bar">
+
+    <div alt="" style="max-width: 100%;    max-width: 100%;
+    height: 410px;
+                                            width: 320px;
+                                            background-size: cover;" [style.backgroundImage]="'url('+material.ticket_image_urls[0]+ ')'">
+
+    </div>
+
+    <img [src]="material.share_image_url" alt="" class="logo">
+
+
+  </div>
+</div>

@@ -1,0 +1,20 @@
+{
+    "ok": true,
+    "data": [{
+        "templateId": 1,
+        "name": "nodejs 代码生成",
+        "comment": "123",
+        "devId": null,
+        "template": "  import { Sequelize, Instance,    {%if  cols|some('type','varchar') %}  STRING,{%endif%}  {%if  cols|some('type','Date') %} INTEGER,{%endif%}{%if  cols|some('type','tinyint') %} Boolean,{%endif%}  {%if  cols|some('type','Date') %} Date,{%endif%}{%if  cols|some('type','int') %} INTEGER,{%endif%}  } from \"sequelize\";    interface  {{name | capitalize}}{  {%for col in cols%}  /** {{col.comment}} */  {{col.key}}?:{{col.type|typeTo('ts')}}  {%endfor%}  }    type  {{name | capitalize }}Instance = Instance< {{name | capitalize}}> &  {{name | capitalize}};    /** comment */  export let {{name |upper}} = (database: Sequelize) => {  const {{name}} = database.define<{{name | capitalize }}Instance, {{name | capitalize}}>(      \"{{name}}\",      {        {%for col in cols%} {{ col.key}}:{type:{{col.type |typeTo('sequelize') }} , {% if col.PK%} primaryKey:true ,{%endif%} {% if col.NN%} allowNull:false ,{%endif%}          {% if col.AI%} autoIncrement:true ,{%endif%}  },        {%endfor%}           }    );    // {{name}}.sync({ force: true });      return {{name}};  };",
+        "createdAt": "2018-06-17T16:11:31.000Z",
+        "updatedAt": "2018-06-17T16:11:31.000Z"
+    }, {
+        "templateId": 2,
+        "name": "eggjs Rest接口风格代码生成",
+        "comment": "Rest风格 route,controller层代码生成",
+        "devId": null,
+        "template": "  // *.route.ts  import { Application } from \"egg\";        /**   *    *    */  let api={   {{name}}List='/api/{{name}}/list',   {{name}}Create='/api/{{name}}/create',   {{name}}Update='/api/{{name}}/update',   {{name}}Delete='/api/{{name}}/delete'  }  module.exports = (app: Application) => {    let {{name}}=app.controller.{{name}};    app.router    .get(api.{{name}}List,{{name}}.{{name}}List)    .post(api.{{name}}.Create,{{name}}.{{name}}Create)    .post(api.{{name}}.Update,{{name}}.{{name}}Update)    .delete(api.{{name}}.Delete,{{name}}.{{name}}Delete)};  // *.controller.ts  import { Controller } from \"egg\";  import { RoleType, } from '../constant';  import db = require('../model');  export default class extends Controller {      async {{name}}List() {        let {{name}}s = await db.{{name}}.findAll();        this.ctx.body={ok:true,data:{{name}}s}      }      async {{name}}Create(){        let new{{name}} = this.ctx.request.body;        let {{name}}s = await db.{{name}}.create(new{{name}});        this.ctx.body={ok:true,data:new{{name}} }      }      async {{name}}Update(){        let {{name}}=this.ctx.request.body;        let {{name}} = await db.{{name}}.update(new{{name}},{where:{% raw %}{ {%endraw%} {{name}}Id},} );        this.ctx.body={ok:true,data:{{name}} }      }    }  ",
+        "createdAt": "2018-06-17T16:16:35.000Z",
+        "updatedAt": "2018-06-17T16:16:35.000Z"
+    }]
+}

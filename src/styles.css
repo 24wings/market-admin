@@ -1,0 +1,176 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '//at.alicdn.com/t/font_669345_kgj441amzdezsemi.css';
+.text-center {
+    text-align: center;
+}
+
+.min-card .ant-card-body {
+    min-height: 350px;
+}
+
+.gray {
+    color: lightgray;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul li,
+ol li,
+ul,
+ol,
+li {
+    list-style: none;
+}
+
+.ant-menu-item-selected {
+    background: #3399ff !important;
+}
+
+#nz-card {
+    font-size: .9rem;
+    line-height: 2.5rem;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.table-operations {
+    margin-bottom: 16px;
+}
+
+.table-operations>button {
+    margin-right: 8px;
+}
+
+.avatar-uploader>.ant-upload {
+    width: 128px;
+    height: 128px;
+}
+
+.ant-upload-select-picture-card i {
+    font-size: 32px;
+    color: #999;
+}
+
+.ant-upload-select-picture-card .ant-upload-text {
+    margin-top: 8px;
+    color: #666;
+}
+
+nz-upload img {
+    max-width: 100%;
+}
+
+.container {
+    padding: 24px;
+}
+
+.bg-gray {
+    background: #f0f2f5;
+}
+
+.bg-white {
+    background: #fff;
+}
+
+nz-pagination .ant-pagination {
+    margin-top: 40px;
+}
+
+.ant-select-selection.ant-select-selection--single {
+    min-width: 50px;
+}
+
+.ant-select.ant-select-enabled {
+    min-width: 130px
+}
+
+.CodeMirror.cm-s-default.CodeMirror-wrap {
+    width: 100%;
+}
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-center {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.ant-list-item-content {
+    flex-direction: column !important;
+}
+
+table td img {
+    max-width: 100px;
+    max-height: 60px;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+.storage .ant-progress-text.ng-star-inserted {
+    font-size: .9rem;
+}
+
+.inline-block {
+    display: inline-block !important;
+}
+
+:host ::ng-deep .ant-tree {
+    overflow: hidden;
+    margin: 0 -24px;
+    padding: 0 24px;
+}
+
+.custom-node {
+    cursor: pointer;
+    line-height: 30px;
+    display: inline-block;
+    margin: 0 -1000px;
+    padding: 0 1000px;
+}
+
+.active {
+    background: #1890ff;
+    color: #fff;
+}
+
+.anticon {
+    padding: 0 4px;
+}
+
+.menu-group {
+    padding: 24px;
+    border: 1px dotted #eee;
+    margin: 20px auto;
+}
+
+.menu-group label {
+    margin-bottom: 20px;
+}
+
+.sub-menu {
+    /* border: 1px dotted #e2e2e2; */
+    padding: 20px;
+    margin: 20px;
+}
+
+.table-operations {
+    margin-bottom: 16px;
+}
+
+.table-operations>button {
+    margin-right: 8px;
+}

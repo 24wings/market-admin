@@ -1,0 +1,46 @@
+{
+  "ok": true,
+  "data": [{
+      "groupName": "活动首页",
+      "children": [{
+          "url": "http://store.airuanjian.vip/material/8.png"
+        },
+        {
+          "url": "http://store.airuanjian.vip/material/01.png"
+        },
+        {
+          "url": "http://store.airuanjian.vip/material/02.png"
+        },
+        {
+          "url": "http://store.airuanjian.vip/material/03.png"
+        }
+
+      ]
+
+    },
+    {
+      "groupName": "活动详情",
+      "children": [{
+          "url": "http://store.airuanjian.vip/material/9.png"
+        },
+        {
+          "url": "http://store.airuanjian.vip/material/04.png"
+        },
+        {
+          "url": "http://store.airuanjian.vip/material/05.png"
+        },
+        {
+          "url": "http://store.airuanjian.vip/material/06.png"
+        },
+        {
+          "url": "http://store.airuanjian.vip/material/07.png"
+        }
+
+
+      ]
+
+    }
+
+
+  ]
+}

@@ -1,0 +1,27 @@
+<!-- 工具条 如导出全部数据结构,导出关系图表,导出mysql 等 -->
+
+<button nzType="primary" nz-button [routerLink]="'table'" [queryParams]="{mode:'create'}">新建表</button>
+
+<nz-table #basicTable [nzData]="dataSet">
+    <thead>
+        <tr>
+            <th>表名</th>
+            <th>备注</th>
+            <th>字段数量</th>
+            <th>关联表</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of dataSet">
+            <td>{{data.name}}</td>
+            <td>{{data.comment}}</td>
+            <td>{{data.fieldSize}}</td>
+            <td></td>
+            <td>
+                <button nz-button nzType="primary" [routerLink]="'./table'" [queryParams]={tableId:data.tableId}> 编辑 </button>
+                <button nz-button nzType="danger" (click)="removeTable(data)">删除</button>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>

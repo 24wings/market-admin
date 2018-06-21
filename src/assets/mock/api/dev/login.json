@@ -1,0 +1,35 @@
+{
+    "ok": true,
+    "status": 200,
+    "data": {
+        "dev": {
+            "dev_id": 1,
+            "dev_name": "刺月无影"
+        },
+        "menus": [{
+            "menu_id": 1,
+            "text": "菜单管理",
+            "i18n": "",
+            "parent_id": "",
+            "link": "/dev/menu",
+            "externalink": "",
+            "target": "",
+            "icon": "",
+            "badge": 0,
+            "badge_dot": false,
+            "badge_status": "",
+            "hide": false,
+            "hideInBreadcrumb": false,
+            "shortcut": false,
+            "shortcut_root": false,
+            "reuse": false,
+            "menu_type": 2
+
+
+
+
+        }]
+    }
+
+
+}
