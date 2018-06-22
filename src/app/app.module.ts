@@ -45,7 +45,7 @@ import { ToolPageComponent } from './pages/tool-page/tool-page.component';
       { path: "admin/login", component: LoginPageComponent },
       { path: "dev/login", component: DevLoginComponent },
       { path: 'admin/dev', loadChildren: 'app/dev/dev.module#DevModule', data: { preload: true } },
-      { path: 'admin/dev/market', loadChildren: 'app/dev/dev.module#DevModule', data: { preload: true } },
+      { path: 'admin/employee', loadChildren: 'app/employee/employee.module#EmployeeModule', },
       // {path:'admin/dev/market',  loadChildren: 'app/dev/dev.module#DevModule',data:{preload:true}},
 
       // { path: "admin/signup", component: SignupPageComponent },
@@ -85,7 +85,9 @@ import { ToolPageComponent } from './pages/tool-page/tool-page.component';
       //   ]
       // },
 
-    ], { preloadingStrategy: PreloadAllModules })
+    ],
+    //  { preloadingStrategy: PreloadAllModules }
+  )
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -1,13 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-// import { EmployeeRoutingModule } from './employee-routing.module';
+import { OrgPageComponent } from './pages/org-page/org-page.component';
+import {RouterModule} from '@angular/router';
+import { HomePageComponent } from '../lib/pages/home-page/home-page.component';
+import {LibModule} from '../lib';
 
 @NgModule({
   imports: [
+    LibModule.forRoot(),
     CommonModule,
-    // EmployeeRoutingModule
+    RouterModule.forChild([
+      {path:'',component:HomePageComponent,}
+    ])
   ],
-  declarations: []
+  declarations: [OrgPageComponent,]
 })
 export class EmployeeModule { }
