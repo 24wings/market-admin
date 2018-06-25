@@ -17,7 +17,7 @@ export class MyHttpService {
   get ip() {
     return this.isDev ? this.localIp : this.serverIp;
   }
-  localIp = "http://104.224.150.203";
+  localIp = "http://192.168.3.217";
   serverIp = "http://47.100.23.203";
   Get(url: string, options?: RequestOptionsArgs) {
     console.log(url);

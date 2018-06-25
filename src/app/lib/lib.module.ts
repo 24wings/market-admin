@@ -1,10 +1,10 @@
 import { NgModule, ModuleWithProviders } from "@angular/core";
-import {HomePageComponent} from './pages/home-page/home-page.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { RouterModule } from "@angular/router";
 import { HttpModule, JsonpModule } from "@angular/http";
 import { FormsModule } from "@angular/forms";
-import { CommonService, ConfigService, } from "./service";
+import { CommonService, ConfigService, EmpService, } from "./service";
 // import { MoneyPipe, ArrTruePipe } from './pipe';
 import { BackDirective, BgImgDirective } from "./directive";
 
@@ -40,7 +40,7 @@ import { StorageService } from "./service/storage.service";
 
     BgImgDirective,
     BackDirective,
-    ImageViewerDirective,HomePageComponent
+    ImageViewerDirective, HomePageComponent
 
   ],
   exports: [
@@ -73,7 +73,8 @@ import { StorageService } from "./service/storage.service";
     StorageService,
 
 
-    DevService
+    DevService,
+    EmpService
   ]
 })
 export class LibModule {
@@ -96,7 +97,8 @@ export class LibModule {
 
 
         DevService,
-        HomePageComponent
+        HomePageComponent,
+        EmpService
       ]
     };
   }

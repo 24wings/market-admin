@@ -1,63 +1,63 @@
 <div class="container">
 
-  <div class="main">
-    <div class="top text-center">
-      <div class="header ">
-        <!-- <img src="https://preview.pro.ant.design/static/logo.b29324c4.svg" alt="" class="logo"> -->
-      </div>
-      <div class="desc">邦为操作系统</div>
-    </div>
-    <div class="login-form">
-      <div>
+    <div class="main">
+        <div class="top text-center">
+            <div class="header ">
+                <!-- <img src="https://preview.pro.ant.design/static/logo.b29324c4.svg" alt="" class="logo"> -->
+            </div>
+            <div class="desc">梭日科技市场管理</div>
+        </div>
+        <div class="login-form">
+            <div>
 
-        <!-- <nz-input [(ngModel)]="shop_id" [nzPlaceHolder]="'商户'" [nzSize]="'large'">
+                <!-- <nz-input [(ngModel)]="shop_id" [nzPlaceHolder]="'商户'" [nzSize]="'large'">
           <ng-template #prefix>
             <i class="anticon anticon-user"></i>
           </ng-template>
         </nz-input> -->
-        <nz-input-group [nzSuffix]="suffixTemplate" nzPrefixIcon="anticon anticon-user">
-          <input type="text" nz-input placeholder="用户名" [(ngModel)]="username">
-        </nz-input-group>
-        <ng-template #suffixTemplate>
-          <i class="anticon anticon-close-circle" (click)="username=null" *ngIf="username"></i>
-        </ng-template>
+                <nz-input-group [nzSuffix]="suffixTemplate" nzPrefixIcon="anticon anticon-user">
+                    <input type="text" nz-input placeholder="用户名" [(ngModel)]="username">
+                </nz-input-group>
+                <ng-template #suffixTemplate>
+                    <i class="anticon anticon-close-circle" (click)="username=null" *ngIf="username"></i>
+                </ng-template>
 
 
-      </div>
-      <div style="margin:20px auto;">
-        <nz-input-group [nzSuffix]="suffixTemplate" nzPrefixIcon="anticon anticon-user">
-          <input type="password" nz-input placeholder="密码" [(ngModel)]="password">
-        </nz-input-group>
-        <ng-template #suffixTemplate>
-          <i class="anticon anticon-close-circle" (click)="password=null" *ngIf="password"></i>
-        </ng-template>
-      </div>
+            </div>
+            <div style="margin:20px auto;">
+                <nz-input-group [nzSuffix]="suffixTemplate" nzPrefixIcon="anticon anticon-user">
+                    <input type="password" nz-input placeholder="密码" [(ngModel)]="password">
+                </nz-input-group>
+                <ng-template #suffixTemplate>
+                    <i class="anticon anticon-close-circle" (click)="password=null" *ngIf="password"></i>
+                </ng-template>
+            </div>
 
-      <div>
+            <div>
 
 
-      </div>
-      <div style="display: FLEX;
+            </div>
+            <div style="display: FLEX;
             justify-content: space-around;
             margin: 20px;">
 
 
 
-        <a class="login-form-forgot" routerLink="/admin/forgot-password" class="login-form-forgot">忘记密码</a>
-        <a routerLink="/admin/signup">注册</a>
+                <a class="login-form-forgot" routerLink="/admin/forgot-password" class="login-form-forgot">忘记密码</a>
+                <a routerLink="/admin/signup">注册</a>
 
 
-      </div>
+            </div>
 
 
-      <button nz-button class="login-form-button" [nzType]="'primary'" [nzSize]="'large'" (click)="login()">登录</button>
+            <button nz-button class="login-form-button" [nzType]="'primary'" [nzSize]="'large'" (click)="login()">登录</button>
+        </div>
+
     </div>
-
-  </div>
-  <!-- footer -->
-  <div class="footer golbal-footer ">
-    <span class="copyright">
+    <!-- footer -->
+    <div class="footer golbal-footer ">
+        <span class="copyright">
       由刺月无影提供
     </span>
-  </div>
+    </div>
 </div>

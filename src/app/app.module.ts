@@ -86,8 +86,8 @@ import { ToolPageComponent } from './pages/tool-page/tool-page.component';
       // },
 
     ],
-    //  { preloadingStrategy: PreloadAllModules }
-  )
+      //  { preloadingStrategy: PreloadAllModules }
+    )
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

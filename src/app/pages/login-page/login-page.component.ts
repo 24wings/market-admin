@@ -16,8 +16,10 @@ import {
 
   MyHttpService,
 
-  DevService
+  DevService,
+  EmpService
 } from "../../lib";
+// import { EmptyError } from "rxjs";
 @Component({
   selector: "app-login-page",
   templateUrl: "./login-page.component.html",
@@ -39,7 +41,8 @@ export class LoginPageComponent implements OnInit {
 
     public http: MyHttpService,
     public lowHttp: Http,
-    public dev: DevService
+    public dev: DevService,
+    public emp: EmpService
 
   ) { }
 
@@ -52,14 +55,19 @@ export class LoginPageComponent implements OnInit {
     if (!this.loading) {
 
       this.loading = true;
-      let result = await this.dev.devLogin(this.username, this.password);
+      let result = await this.emp.EmpLogin(this.username, this.password);
       this.loading = false;
 
       if (result) {
         // this.shop.shop_id = result.shop.shop_id;
         // await this.shop.http.createMessage('success', '欢迎回来' + result.shop_name);
         // this.storage.adminModuleList = result.modules;
-        this.router.navigateByUrl('/admin')
+        this.storage.employee = result.employee;
+        console.log(result)
+
+        console.log(this.storage.employee)
+
+        this.router.navigateByUrl('/admin/employee/org')
       }
 
 

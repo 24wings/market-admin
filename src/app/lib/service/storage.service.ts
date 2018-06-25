@@ -51,6 +51,11 @@ export class StorageService {
     sessionStorage.setItem('gcId', gcId + '')
   }
 
-
+  set employee(employee: IEmployee) {
+    localStorage.setItem("employee", JSON.stringify(employee))
+  }
+  get employee() {
+    return localStorage.getItem("employee") ? JSON.parse(localStorage.getItem("employee")) : {};
+  }
   constructor() { }
 }
