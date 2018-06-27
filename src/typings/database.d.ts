@@ -1,30 +1,30 @@
-  /**
-   * type=1 全局参数
-   * type=2 本地参数
-   */
-  interface  IParam{
-      id?:number;
- paramName?:string;
- paramKey?:string;
- paramValue?:string;
- type?:number;
- mktId?:number;
- remark?:string;
- addition?:string;
- defaultValue?:string;
- /**是否本地参数 */
- isLocal?:boolean;
+/**
+ * type=1 全局参数
+ * type=2 本地参数
+ */
+interface IParam {
+  id?: number;
+  paramName?: string;
+  paramKey?: string;
+  paramValue?: string;
+  type?: number;
+  mktId?: number;
+  remark?: string;
+  addition?: string;
+  defaultValue?: string;
+  /**是否本地参数 */
+  isLocal?: boolean;
 
 }
 interface IOrg {
-  /** 组织Id */  
+  /** 组织Id */
   orgId?: number;
-    /** 组织名称 */  
-    orgName?: string;
+  /** 组织名称 */
+  orgName?: string;
   /** 上级组织Id,默认0顶级组织 */
   parentId?: number;    /** 公司Id */
   marketId?: number;
-  parentName?:string;
+  parentName?: string;
 }
 interface IEmployee {
   epId?: number;
@@ -37,8 +37,8 @@ interface IEmployee {
   menuIds?: string;
   employeeType?: number;
   marketId?: number;
-  orgId?:number;
-  roleIds?:string | number[];
+  orgId?: number;
+  roleIds?: string | number[];
 
 }
 
@@ -56,7 +56,7 @@ interface IMarket {
   legalPeson?: string;
   legalPhone?: string;
   gcId?: number;
-  menuIds?:number[] | string;
+  menuIds?: number[] | string;
 
 }
 
@@ -78,7 +78,7 @@ interface IRole {
   updateTime?: Date;
   menuIds?: string | number[];
   parentId?: number;
-  menus?:IMenu[];
+  menus?: IMenu[];
 
 }
 

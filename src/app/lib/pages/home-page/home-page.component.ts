@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ConfigService, StorageService, CommonService, DevService } from "../../service";
+import { ConfigService, StorageService, CommonService, DevService, EmpService } from "../../service";
 import { MenuType } from "../../../constant";
 
 enum View {
@@ -38,13 +38,22 @@ export class HomePageComponent implements OnInit {
     public config: ConfigService,
     public storage: StorageService,
     public common: CommonService,
-    public dev: DevService
+    public dev: DevService,
+    public emp: EmpService
   ) { }
 
   async ngOnInit() {
-    this.shop_user_name = this.storage.dev.devUserName;
+    /**Kaifazhe */
+    if (this.storage.userType == 1) {
+      this.shop_user_name = this.storage.shop_user_name;
+    } else {
+      this.shop_user_name = this.storage.employee.epName;
+
+    }
+
+    // this.shop_user_name = this.storage.dev.devUserName;
     this.groups = this.common.getModuleGroup(this.storage.menuList);
-    this.dbList();
+
   }
 
   async getAdminInfo() { }

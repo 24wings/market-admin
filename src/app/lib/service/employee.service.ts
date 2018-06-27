@@ -23,7 +23,41 @@ export class EmpService {
         employeeDelete: "/api/employee/delete",
         employeeList: "/api/employee/list",
         employeeDetail: "/api/employee/detail",
+        employeeDisable: "/api/employee/disable",
+        employeeActive: '/api/employee/active',
         marketDetail: '/api/market/detail',
+        marketMenus: '/api/market/menus',
+        listParams: '/api/param/list',
+        paramsCreate: '/api/param/create',
+        paramsDelete: '/api/param/delete',
+        paramUpdate: '/api/param/update',
+    }
+    async listLocalParams(mktId: number, page: number = 0, pageSize: number = 10) {
+        let result = await this.http.Get(this.api.listParams, { params: { isLocal: 1, mktId, page, pageSize } });
+        return result.params;
+    }
+    async listGolbalParams(mktId: number, page: number = 0, pageSize: number = 10) {
+        let result = await this.http.Get(this.api.listParams, { params: { isLocal: 0, mktId, page, pageSize } });
+        return result.params;
+    }
+    async golbalParamsCreate(param: IParam) {
+        param.isLocal = 0 as any;
+        return this.http.Post(this.api.paramsCreate, param)
+    }
+    async localParamCreate(param: IParam) {
+        param.isLocal = 1 as any;
+        return this.http.Post(this.api.paramsCreate, param);
+    }
+    async paramDelete(id: number) {
+        return this.http.Get(this.api.paramsDelete, { params: { id } })
+    }
+    async paramUpdate(param: IParam) {
+        return this.http.Post(this.api.paramUpdate, param);
+    }
+
+    async  marketMenus(mktId: number) {
+        let result = await this.http.Get(this.api.marketMenus, { params: { mktId } });
+        return result.menus;
     }
     async  marketDetail(mktId: number) {
         let result = await this.http.Get(this.api.marketDetail, { params: { mktId } });
@@ -32,6 +66,12 @@ export class EmpService {
         if (!result.market.menuIds) result.market.menuIds = [];
         if (typeof result.market.menuIds == 'string') result.market.menuIds = result.market.menuIds.split(',')
         return result.market;
+    }
+    async employeeDisable(epId: number) {
+        return this.http.Get(this.api.employeeDisable, { params: { epId } })
+    }
+    async employeeActive(epId: number) {
+        return this.http.Get(this.api.employeeDisable, { params: { epId } })
     }
     async  employeeDetail(epId: number) {
         let result = await this.http.Get(this.api.employeeDetail, { params: { epId } });

@@ -21,7 +21,9 @@
                         <!-- <td *ngIf="selectedOrg">{{selectedOrg.parentName || selectedOrg.orgName}}</td> -->
                         <td>
                             <button nz-button nzType="primary" (click)="selectedEmployee=data;state=View.EmployeeEdit">修改</button>
-                            <button nz-button nztype="danger" (click)="employeeDelete(data.epId)">删除</button></td>
+                            <button nz-button nztype="danger" (click)="employeeDelete(data.epId)">删除</button>
+                            <nz-switch nzCheckedChildren="启用" nzUnCheckedChildren="禁用" [(ngModel)]="switchValue" [nzControl]="true" (click)="clickSwitch()" [nzLoading]="active"></nz-switch>
+                        </td>
                     </tr>
                 </tbody>
             </nz-table>

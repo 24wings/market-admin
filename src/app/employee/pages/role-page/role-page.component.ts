@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CommonService, StorageService, EmpService } from '../../../lib';
+import { EmpService, CommonService, StorageService } from '../../../lib';
+
 
 enum View {
   ListRole,
@@ -27,15 +28,14 @@ export class RolePageComponent implements OnInit {
 
   state = View.ListRole;
   View = View;
+  employee: IEmployee;
   constructor(public route: ActivatedRoute, public emp: EmpService, public common: CommonService, public store: StorageService) {
-    this.marketId = this.store.employee.marketId
+    this.employee = this.store.employee
+    this.marketId = this.employee.marketId
   }
   dataSet: IRole[] = [
     { roleName: '', menuIds: [] }
   ];
-
-
-
   async selectRole(role: IRole) {
     this.selectedRole = role;
     this.groups.forEach(group => {
@@ -67,8 +67,9 @@ export class RolePageComponent implements OnInit {
     this.roles.forEach(role => role.menus = this.common.menuIdsToMenus(role.menuIds as number[], this.totalMenus))
   }
   async  listGroup() {
-    this.totalMenus = await this.emp.roleList(this.marketId);
+    this.totalMenus = await this.emp.marketMenus(this.marketId);
     this.groups = this.common.getModuleGroup(this.totalMenus);
+    console.log(this.employee)
     console.log(this.groups);
   }
   async  createRole() {

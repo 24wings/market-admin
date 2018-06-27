@@ -19,6 +19,7 @@ import {
   DevService,
   EmpService
 } from "../../lib";
+import { MenuType } from "../../constant";
 // import { EmptyError } from "rxjs";
 @Component({
   selector: "app-login-page",
@@ -63,10 +64,10 @@ export class LoginPageComponent implements OnInit {
         // await this.shop.http.createMessage('success', '欢迎回来' + result.shop_name);
         // this.storage.adminModuleList = result.modules;
         this.storage.employee = result.employee;
-        console.log(result)
 
-        console.log(this.storage.employee)
-
+        this.storage.userType = MenuType.Market
+        this.storage.shop_user_name = this.storage.employee.epUserName
+        this.storage.menuList = result.menuList
         this.router.navigateByUrl('/admin/employee/org')
       }
 

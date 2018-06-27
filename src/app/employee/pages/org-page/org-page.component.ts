@@ -21,7 +21,7 @@ export class OrgPageComponent implements OnInit {
   newOrg: IOrg = { orgName: '' };
   dataSet: IOrg[] = [];
   editOrg: IOrg;
-
+  org: IOrg;
   selectedOrg: IOrg;
   async createOrg() {
 
@@ -33,8 +33,11 @@ export class OrgPageComponent implements OnInit {
   // marketId: number;
   employee: IEmployee;
   empId: number;
+  mktId: number;
   constructor(public emp: EmpService, public route: ActivatedRoute, public store: StorageService) {
-    this.employee = this.store.employee
+    this.employee = this.store.employee;
+    this.mktId = this.employee.marketId;
+
   }
   async  updateOrg() {
     await this.emp.orgUpdate(this.editOrg);
@@ -52,6 +55,7 @@ export class OrgPageComponent implements OnInit {
   }
   async  editOrging(orgId: number) {
     this.editOrg = await this.emp.orgDetail(orgId);
+    this.market = await this.emp.marketDetail(this.employee.marketId);
     if (this.editOrg.parentId == 0) {
       // if(!parent){parent={orgName:this.market.mktName}}
       this.editOrg.parentName = this.market.mktName
@@ -66,24 +70,20 @@ export class OrgPageComponent implements OnInit {
   }
 
   async   listOrg() {
+    this.market = await this.emp.marketDetail(this.employee.marketId);
+    if (this.employee.orgId) {
+      this.mouseAction('', { node: { key: this.org.orgId, title: this.org.orgName } } as any);
+    } else {
+      this.mouseAction('', { node: { key: this.employee.marketId, title: this.market.mktName } as any })
 
-    // await this.employeeDetail();
-    // this.emp.employeeDetail(this.marketId).then(res => {
-    //   this.market = res;
-    // })
-    // let orgs: IOrg[] = await this.emp.orgList(this.marketId, 0);
-    // this.orgNodes[0].children = [];
-    // this.orgNodes[0].addChildren(orgs.map(org => {
-    //   return {
-    //     key: org.orgId as any, title: org.orgName, isLeaf: false,
-    //     children: [], origin: org
-    //   } as NzTreeNodeOptions
-    // }
-    // ));
-    this.mouseAction('', { node: { key: this.employee.marketId, title: this.market.mktName } as any })
+    }
+
   }
   orgNodes: NzTreeNode[] = [];
+
+
   async  mouseAction(name: string, e: { node: NzTreeNode }) {
+    this.market = await this.emp.marketDetail(this.employee.marketId);
     let subOrgs: IOrg[] = await this.emp.orgList(this.market.mktId, e.node.key as any);
     this.dataSet = JSON.parse(JSON.stringify(subOrgs));
 
@@ -105,21 +105,22 @@ export class OrgPageComponent implements OnInit {
 
   }
   async employeeOrg() {
-    let org = await this.emp.orgDetail(this.employee.orgId);
+    this.org = await this.emp.orgDetail(this.employee.orgId);
 
     /**不属于任何组织,直接属于市场 */
-    if (!org) {
+    if (!this.org) {
       console.log(this.employee.marketId)
       this.market = await this.emp.marketDetail(this.employee.marketId);
       this.orgNodes = [new NzTreeNode({ title: this.market.mktName, key: 0 + '', expanded: true })];
 
     } else {
-      this.orgNodes = [new NzTreeNode({ title: org.orgName, key: 0 + '' })];
+      this.orgNodes = [new NzTreeNode({ title: this.org.orgName, key: this.org.orgId + '' })];
     }
 
   }
 
   async ngOnInit() {
+    // this.mouseAction('', { node: { key: this.employee.marketId, title: this.market.mktName } as any })
     await this.employeeDetail();
     await this.employeeOrg();
     await this.listOrg();

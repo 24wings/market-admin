@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { NzTreeNode, NzTreeNodeOptions, TransferItem } from 'ng-zorro-antd';
 import { RoleType, EmployeeType } from '../../../constant';
 import { MenuType } from '../../../constant';
-import { DevService, CommonService, StorageService } from '../../../lib';
+import { EmpService, CommonService, StorageService } from '../../../lib';
 import { ActivatedRoute } from '@angular/router';
 
 enum View {
@@ -29,8 +29,9 @@ export class EmpPageComponent implements OnInit {
     roleType: RoleType.GroupCompany,
     menuIds: []
   }
-
+  orgId: number;
   marketId: number;
+
   newEmployee: IEmployee = {
     epName: '',
     epUserName: '',
@@ -49,7 +50,9 @@ export class EmpPageComponent implements OnInit {
   View = View;
   orgNodes: NzTreeNode[] = [];
   totalRoles: IRole[] = [];
-
+  org: IOrg
+  switchValue = false;
+  active = false;
   /**
    * isLeaf  false为组织 true为员工  组织可以点击获取组织员工
    * 
@@ -58,7 +61,7 @@ export class EmpPageComponent implements OnInit {
     return { key: org.orgId + '', title: org.orgName, children: [], isLeaf: false, expanded: false, origin: org } as any
   }
   async  employeeUpdate() {
-    await this.dev.employeeUpdate(this.selectedEmployee);
+    await this.emp.employeeUpdate(this.selectedEmployee);
     await this.listTopOrgs();
   }
   employeeToTreeNodeOption(employee: IEmployee): NzTreeNodeOptions {
@@ -75,9 +78,9 @@ export class EmpPageComponent implements OnInit {
       if (e.node.key) {
         this.selectedOrg = { orgName: e.node.title, orgId: e.node.key as any };
         console.log('选中下级组织', e.node.origin);
-        this.employees = await this.dev.employeeList(this.marketId, e.node.key as any);
+        this.employees = await this.emp.employeeList(this.marketId, e.node.key as any);
 
-        let subOrgs: IOrg[] = await this.dev.orgList(this.marketId, e.node.key as any);
+        let subOrgs: IOrg[] = await this.emp.orgList(this.marketId, e.node.key as any);
         e.node.children = [];
         e.node.addChildren(subOrgs.map(org => this.orgToTreeNode(org)));
 
@@ -87,8 +90,8 @@ export class EmpPageComponent implements OnInit {
         console.log('选中顶级组织')
         this.selectedOrg = { orgName: this.market.mktName, orgId: 0 };
         // 市场员工
-        this.employees = await this.dev.employeeList(this.marketId, 0);
-        let orgs = await this.dev.orgList(this.marketId, 0);
+        this.employees = await this.emp.employeeList(this.marketId, 0);
+        let orgs = await this.emp.orgList(this.marketId, 0);
         this.orgNodes[0].children = [];
         this.orgNodes[0].addChildren(orgs.map(org => this.orgToTreeNode(org)));
 
@@ -100,27 +103,49 @@ export class EmpPageComponent implements OnInit {
 
     }
   }
-  constructor(public dev: DevService, public common: CommonService, public storage: StorageService, public route: ActivatedRoute) {
-    this.marketId = this.storage.employee.marketId
+  employee: IEmployee;
+  constructor(public emp: EmpService, public common: CommonService, public storage: StorageService, public route: ActivatedRoute) {
+    this.employee = this.storage.employee
+    this.marketId = this.employee.marketId
+    this.orgId = this.employee.orgId;
+  }
+  async roleList() {
+    this.totalRoles = await this.emp.roleList(this.marketId);
+
+    console.log(this.totalRoles)
+
+    this.employeeRoles = this.totalRoles.map(role => this.roleToTransferItem(role));
+    console.log(this.employeeRoles)
+    this.org = await this.emp.orgDetail(this.orgId)
+    this.mouseAction('', { node: { key: this.employee.orgId, title: this.org.orgName } } as any)
 
   }
   async listTopOrgs() {
-    this.market = await this.dev.marketDetail(this.marketId);
-    this.selectedOrg = { orgId: 0, orgName: this.market.mktName, };
-    this.orgNodes = [new NzTreeNode({ title: this.market.mktName, children: [], key: '', expanded: true })]
-    this.employees = await this.dev.employeeList(this.marketId, 0);
-    let orgs = await this.dev.orgList(this.marketId, 0);
-    this.orgNodes[0].children = [];
-    this.orgNodes[0].addChildren(orgs.map(org => this.orgToTreeNode(org)));
-    // this.orgNodes[0].addChildren(employees.map(employee=>this.employeeToTreeNodeOption(employee)));
+
+    let org = await this.emp.orgDetail(this.employee.orgId);
+
+    /**不属于任何组织,直接属于市场 */
+    if (!org) {
+      console.log(this.employee.marketId)
+      this.market = await this.emp.marketDetail(this.employee.marketId);
+      this.orgNodes = [new NzTreeNode({ title: this.market.mktName, key: 0 + '', expanded: true })];
+
+    } else {
+      this.orgNodes = [new NzTreeNode({ title: org.orgName, key: org.orgId + '' })];
+    }
+
   }
   employeeRoles: TransferItem[] = [];
   select(ret: {}): void {
     console.log('nzSelectChange', ret);
   }
   async  employeeDelete(epId: number) {
-    await this.dev.employeeDelete(epId);
+    await this.emp.employeeDelete(epId);
     await this.listTopOrgs();
+  }
+  //禁用员工
+  async employeeDisable() {
+
   }
   change(ret: {}): void {
     console.log('nzChange', ret);
@@ -129,21 +154,22 @@ export class EmpPageComponent implements OnInit {
     this.newEmployee.marketId = this.marketId;
     this.newEmployee.orgId = this.selectedOrg.orgId;
     // console.log(this.employeeRoles);
-    this.newEmployee.roleIds = (this.employeeRoles.filter(role => role.direction == 'left').map(role => role.key) as number[]);
-    await this.dev.employeeCreate(this.newEmployee);
+    this.newEmployee.roleIds = (this.employeeRoles.filter(role => role.direction == 'right').map(role => role.key) as number[]);
+    await this.emp.employeeCreate(this.newEmployee);
     await this.listTopOrgs();
+    await this.roleList();
   }
-  epChange($event: { from: 'right' | 'left', list: TransferItem[], to: 'right' | 'left' }) {
+  epChange($event: { from: 'left' | 'right', list: TransferItem[], to: 'left' | 'right' }) {
     $event.list.forEach(item => item.direction = $event.to);
   }
 
   async ngOnInit() {
-    await this.roleList();
+    await this.marketDetail()
     await this.listTopOrgs();
+    await this.roleList();
   }
-  async roleList() {
-    this.totalRoles = await this.dev.marketRoles(this.marketId);
-    this.employeeRoles = this.totalRoles.map(role => this.roleToTransferItem(role));
+  async marketDetail() {
+    this.market = await this.emp.marketDetail(this.marketId);
   }
   roleToTransferItem(role: IRole): TransferItem {
     return { title: role.roleName, key: role.roleId + '', direction: 'right' };
@@ -173,5 +199,21 @@ export class EmpPageComponent implements OnInit {
     } else {
       group.indeterminate = true;
     }
+  }
+  clickSwitch(): void {
+    if (!this.active) {
+
+      this.active = true;
+      setTimeout(() => {
+        this.switchValue = !this.switchValue;
+        // this.employee.employeeType=await this.emp.
+        this.active = false;
+      }, 300);
+
+
+    } else {
+
+    }
+
   }
 }

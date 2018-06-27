@@ -44,6 +44,7 @@ export class StorageService {
     localStorage.setItem("menu-list", JSON.stringify(menus));
   }
 
+
   get gcId() {
     return sessionStorage.getItem('gcId') ? parseInt(sessionStorage.getItem('gcId')) : 0
   }
@@ -56,6 +57,21 @@ export class StorageService {
   }
   get employee() {
     return localStorage.getItem("employee") ? JSON.parse(localStorage.getItem("employee")) : {};
+  }
+  // set localPage(paramValue: string) {
+  //   localStorage.setItem("paramKey", paramValue)
+  // }
+  getLocal(key: string): IParam {
+    let local = localStorage.getItem("local") ? JSON.parse(localStorage.getItem("local")) : {};
+    return local[key] ? local[key] : {}
+  }
+  getLocalValue(key: string, defaultValue?: any): any {
+    return this.getLocal(key) ? this.getLocal(key).paramValue : defaultValue;
+  }
+  setLocal(key: string, value: IParam) {
+    let local = localStorage.getItem('local') ? JSON.parse(localStorage.getItem('local')) : {};
+    local[key] = value;
+    localStorage.setItem('local', JSON.stringify(local));
   }
   constructor() { }
 }
